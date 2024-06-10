@@ -17,7 +17,7 @@ export default function IssueList({ postDelete: onDelete }: IssueListProps) {
     };
 
     return (
-        <div>
+        <div className='flex flex-wrap gap-4'>
             {issues.map(issue => (
                 <Issue key={issue.id} issue={issue} onDelete={handleDelete} />
             ))}

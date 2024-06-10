@@ -36,16 +36,16 @@ export default function IssueForm({ issue, postSubmit }: IssueFormProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+            <div className='flex gap-3'>
                 <label>Title</label>
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+                <input type="text" className='input input-bordered input-sm' value={title} onChange={e => setTitle(e.target.value)} />
             </div>
-            <div>
+            <div className='flex gap-3'>
                 <label>Description</label>
-                <input type="text" value={description} onChange={e => setDescription(e.target.value)} />
+                <textarea className='textarea textarea-bordered' value={description} onChange={e => setDescription(e.target.value)} />
             </div>
-            <button type="submit">{issue ? 'Update' : 'Create'} Issue</button>
+            <button type="submit" className='btn'>{issue ? 'Update' : 'Create'} Issue</button>
         </form>
     );
 }
