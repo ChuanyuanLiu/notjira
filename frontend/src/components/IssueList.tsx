@@ -1,27 +1,25 @@
-import React from 'react';
 import Issue from './Issue';
-import { IssueType } from '../type';
+import { issuesAtom } from '../data';
+import { useAtom } from 'jotai';
 
-export default function IssueList({ onEdit }: { onEdit: (issue: IssueType) => void }) {
-    const [issues, setIssues] = React.useState<IssueType[]>([]);
+type IssueListProps = {
+    postDelete: () => void;
+};
 
-    React.useEffect(() => {
-        fetch('http://localhost:3000/issues')
-            .then(response => response.json())
-            .then(data => setIssues(data))
-            .catch(error => console.error('There was an error!', error));
-    }, []);
+export default function IssueList({ postDelete: onDelete }: IssueListProps) {
+    const [issues,] = useAtom(issuesAtom);
 
-    const handleDelete = (id: number) => {
-        fetch(`http://localhost:3000/issues/${id}`)
-            .then(() => setIssues(issues.filter(issue => issue.id !== id)))
-            .catch(error => console.error('There was an error!', error));
+    const handleDelete = async (id: number) => {
+        await fetch(`http://localhost:3000/issues/${id}`, {
+            method: 'DELETE',
+        })
+        onDelete()
     };
 
     return (
         <div>
             {issues.map(issue => (
-                <Issue key={issue.id} {...issue} onDelete={handleDelete} onEdit={onEdit} />
+                <Issue key={issue.id} issue={issue} onDelete={handleDelete} />
             ))}
         </div>
     );

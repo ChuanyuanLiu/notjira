@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 interface IssueFormProps {
     issue?: { id: number; title: string; description: string };
-    onFormSubmit: () => void;
+    postSubmit: () => void;
 }
 
 // For both edit and the creation of new issues
-export default function IssueForm({ issue, onFormSubmit }: IssueFormProps) {
+export default function IssueForm({ issue, postSubmit }: IssueFormProps) {
     const [title, setTitle] = useState(issue ? issue.title : '');
     const [description, setDescription] = useState(issue ? issue.description : '');
 
@@ -32,7 +32,7 @@ export default function IssueForm({ issue, onFormSubmit }: IssueFormProps) {
             console.error("There was an error!");
         }
         // tell the parent component to refresh the list of issues
-        onFormSubmit()
+        postSubmit()
     };
 
     return (

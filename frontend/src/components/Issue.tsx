@@ -1,12 +1,18 @@
+import { useAtom } from "jotai";
+import { IssueType, editingIssueAtom } from "../data";
+
 interface IssueProps {
-    id: number;
-    title: string;
-    description: string;
+    issue: IssueType;
     onDelete: (id: number) => void;
-    onEdit: (issue: { id: number; title: string; description: string }) => void;
 }
 
-export default function Issue({ id, title, description, onDelete, onEdit }: IssueProps) {
+export default function Issue({ issue: { id, title, description }, onDelete }: IssueProps) {
+    const [, setEditingIssue] = useAtom(editingIssueAtom);
+
+    const onEdit = (issue: IssueType) => {
+        setEditingIssue(issue);
+    }
+
     return (
         <div>
             <h2>{title}</h2>
