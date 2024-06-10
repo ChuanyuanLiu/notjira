@@ -10,6 +10,11 @@ export default function IssueForm({ issue, postSubmit }: IssueFormProps) {
     const [title, setTitle] = useState(issue ? issue.title : '');
     const [description, setDescription] = useState(issue ? issue.description : '');
 
+    React.useEffect(() => {
+        setTitle(issue ? issue.title : '');
+        setDescription(issue ? issue.description : '');
+    }, [issue]);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         let response = null;
